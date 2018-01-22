@@ -93,7 +93,7 @@ if (!fs.existsSync(location)) {
 
   sh.chmod(600, 'new.pub');
   if (process.platform !== 'win32') {
-    sh.exec('sudo chown root:root new.pub');
+    sh.exec('chown root:root new.pub');
   }
 }
 

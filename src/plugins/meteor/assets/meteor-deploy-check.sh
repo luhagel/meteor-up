@@ -11,19 +11,19 @@ HOST=<%= host %>
 cd $APP_PATH
 
 revert_app (){
-  sudo docker logs --tail=100 $APPNAME 1>&2
+  docker logs --tail=100 $APPNAME 1>&2
 
-  if sudo docker image inspect $IMAGE:previous >/dev/null; then
-    sudo docker tag $IMAGE:previous $IMAGE:latest
-    sudo bash $START_SCRIPT > /dev/null 2>&1
+  if docker image inspect $IMAGE:previous >/dev/null; then
+    docker tag $IMAGE:previous $IMAGE:latest
+    bash $START_SCRIPT > /dev/null 2>&1
 
     echo " " 1>&2
     echo "=> Redeploying previous version of the app" 1>&2
     echo " " 1>&2
 
   elif [ -d last ]; then
-    sudo mv last current
-    sudo bash $START_SCRIPT > /dev/null 2>&1
+    mv last current
+    bash $START_SCRIPT > /dev/null 2>&1
 
     echo " " 1>&2
     echo "=> Redeploying previous version of the app" 1>&2

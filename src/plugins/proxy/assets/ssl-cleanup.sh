@@ -15,8 +15,8 @@ PROXYNAME=<%= proxyName%>
 # to this app. We then delete both copies of the cert.
 # Later they will be recreated for any domains still in the configuration.
 
-sudo rm -rf /opt/$APPNAME/config/bundle.crt
-sudo rm -rf /opt/$APPNAME/config/private.key
+rm -rf /opt/$APPNAME/config/bundle.crt
+rm -rf /opt/$APPNAME/config/private.key
 
 # Remove broken cert symlinks
 cd /opt/$PROXYNAME/certs

@@ -13,31 +13,31 @@ ENV_FILE=$APP_PATH/config/env.list
 ENV_FILE_LETSENCRYPT=$APP_PATH/config/env_letsencrypt.list
 
 # Remove previous version of the app, if exists
-sudo docker rm -f $APPNAME
-sudo docker network disconnect bridge -f $APPNAME
+docker rm -f $APPNAME
+docker network disconnect bridge -f $APPNAME
 echo "Removed $APPNAME"
 
 # Remove let's encrypt containers if exists
-sudo docker rm -f $APPNAME-letsencrypt
-sudo docker network disconnect bridge -f $APPNAME-nginx-proxy
+docker rm -f $APPNAME-letsencrypt
+docker network disconnect bridge -f $APPNAME-nginx-proxy
 echo "Removed $APPNAME-letsencrypt"
 
 # We don't need to fail the deployment because of a docker hub downtime
 set +e
-sudo docker pull jrcs/letsencrypt-nginx-proxy-companion:latest
-sudo docker pull jwilder/nginx-proxy
+docker pull jrcs/letsencrypt-nginx-proxy-companion:latest
+docker pull jwilder/nginx-proxy
 set -e
 echo "Pulled jwilder/nginx-proxy and jrcs/letsencrypt-nginx-proxy-companion"
 
 
 # This updates nginx for all vhosts
-NGINX_CONFIG="client_max_body_size $CLIENT_UPLOAD_LIMIT"
+NGINX_CONFIG='client_max_body_size $CLIENT_UPLOAD_LIMIT \n add_header X-XSS-Protection "1; mode=block";'
 echo $NGINX_CONFIG > /opt/$APPNAME/config/nginx-default.conf
-# sudo cat <<EOT > /opt/$APPNAME/config/nginx-default.conf
+# cat <<EOT > /opt/$APPNAME/config/nginx-default.conf
 # client_max_body_size  clientUploadLimit ;
 # EOT
 
-sudo docker run \
+docker run \
   -d \
   -p $HTTP_PORT:80 \
   -p $HTTPS_PORT:443 \
@@ -55,7 +55,7 @@ sudo docker run \
 echo "Ran nginx-proxy as $APPNAME"
 
 sleep 2s
-sudo docker run -d \
+docker run -d \
   --name $APPNAME-letsencrypt \
   --env-file=$ENV_FILE_LETSENCRYPT \
   --restart=always \

@@ -112,10 +112,10 @@ export function ssh(api) {
   const sshOptions = api._createSSHOptions(server);
 
   var conn = new Client();
-  conn.on('ready', function() {
-    conn.shell(function(err, stream) {
+  conn.on('ready', function () {
+    conn.shell(function (err, stream) {
       if (err) { throw err; }
-      stream.on('close', function() {
+      stream.on('close', function () {
         conn.end();
         process.exit();
       });

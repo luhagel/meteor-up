@@ -2,12 +2,12 @@
 
 APPNAME=<%= appName %>
 
-sudo docker rm -f $APPNAME || :
-sudo docker rm -f $APPNAME-frontend || :
-sudo docker rm -f $APPNAME-nginx-letsencrypt || :
-sudo docker rm -f $APPNAME-nginx-proxy || :
+docker rm -f $APPNAME || :
+docker rm -f $APPNAME-frontend || :
+docker rm -f $APPNAME-nginx-letsencrypt || :
+docker rm -f $APPNAME-nginx-proxy || :
 
-sudo docker network disconnect bridge -f $APPNAME || :
-sudo docker network disconnect bridge -f $APPNAME-frontend || :
-sudo docker network disconnect bridge -f $APPNAME-nginx-letsencrypt || :
-sudo docker network disconnect bridge -f $APPNAME-nginx-proxy || :
+docker network disconnect bridge -f $APPNAME || :
+docker network disconnect bridge -f $APPNAME-frontend || :
+docker network disconnect bridge -f $APPNAME-nginx-letsencrypt || :
+docker network disconnect bridge -f $APPNAME-nginx-proxy || :

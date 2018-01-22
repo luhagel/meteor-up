@@ -5,20 +5,20 @@
 install_docker () {
 # Remove the lock
   set +e
-  sudo rm /var/lib/dpkg/lock > /dev/null
-  sudo rm /var/cache/apt/archives/lock > /dev/null
-  sudo dpkg --configure -a
+  rm /var/lib/dpkg/lock > /dev/null
+  rm /var/cache/apt/archives/lock > /dev/null
+  dpkg --configure -a
   set -e
 
   # Required to update system
-  sudo apt-get update
-  sudo apt-get -y install wget lxc iptables curl
+  apt-get update
+  apt-get -y install wget lxc iptables curl
 
   # Install docker
-  wget -qO- https://get.docker.com/ | sudo sh
-  sudo usermod -a -G docker ${USER}
+  wget -qO- https://get.docker.com/ | sh
+  usermod -a -G docker ${USER}
 
-  sudo service docker start || sudo service docker restart
+  service docker start || service docker restart
 }
 
 minimumMajor=1
@@ -26,8 +26,8 @@ minimumMinor=13
 
 # Is docker already installed?
 set +e
-hasDocker=$(sudo docker version | grep "version")
-serverVersion=$(sudo docker version --format '{{.Server.Version}}')
+hasDocker=$(docker version | grep "version")
+serverVersion=$(docker version --format '{{.Server.Version}}')
 parsedVersion=( ${serverVersion//./ })
 majorVersion="${parsedVersion[0]}"
 minorVersion="${parsedVersion[1]}"
@@ -48,7 +48,7 @@ elif [ "$minimumMajor" -eq "$majorVersion" ] && [ "$minimumMinor" -gt "$minorVer
   install_docker
 else
   # Start docker if it was stopped. If docker is already running, the exit code is 1
-  sudo service docker start || true
+  service docker start || true
 fi
 
 # TODO make sure docker works as expected

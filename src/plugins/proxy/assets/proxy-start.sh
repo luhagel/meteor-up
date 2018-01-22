@@ -7,4 +7,4 @@ APP_DIR=/opt/<%=appName %>
 cd $APP_DIR
 
 # start app
-sudo bash config/start.sh 
+bash config/start.sh 

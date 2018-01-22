@@ -2,7 +2,7 @@
 command -v node >/dev/null 2>&1 || { curl -sL https://deb.nodesource.com/setup_5.x |  bash - &&  apt-get install -qq -y nodejs; }
 command -v docker >/dev/null 2>&1 || { curl https://get.docker.com/ |  sh && echo 'DOCKER_OPTS="--storage-driver=devicemapper"' |  tee --append /etc/default/docker >/dev/null &&  service docker start ||  service docker restart; }
 command -v meteor >/dev/null 2>&1 || { curl https://install.meteor.com/ | sh; }
-# command -v mkfs.xfs >/dev/null 2>&1 || { sudo apt-get -qq -y install xfsprogs; }
+# command -v mkfs.xfs >/dev/null 2>&1 || { apt-get -qq -y install xfsprogs; }
 
 export MUP_DIR=$PWD
 {
@@ -45,7 +45,7 @@ mkdir ./tests/fixtures/ssh
 cd ./tests/fixtures/ssh
 ssh-keygen -f new -t rsa -N ''
 chmod 600 new.pub
-sudo chown root:root new.pub
+chown root:root new.pub
 
 cd $MUP_DIR
 } > /dev/null

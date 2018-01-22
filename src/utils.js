@@ -82,7 +82,7 @@ class Callback2Stream extends stream.Readable {
 }
 
 export function getDockerLogs(name, sessions, args) {
-  const command = 'sudo docker ' + args.join(' ') + ' ' + name + ' 2>&1';
+  const command = 'docker ' + args.join(' ') + ' ' + name + ' 2>&1';
 
   log(`getDockerLogs command: ${command}`);
 
@@ -151,15 +151,15 @@ export function runSSHCommand(info, command) {
     }
     conn.connect(ssh);
 
-    conn.once('error', function(err) {
+    conn.once('error', function (err) {
       if (err) {
         reject(err);
       }
     });
 
     // TODO handle error events
-    conn.once('ready', function() {
-      conn.exec(command, function(err, outputStream) {
+    conn.once('ready', function () {
+      conn.exec(command, function (err, outputStream) {
         if (err) {
           conn.end();
           reject(err);
@@ -168,11 +168,11 @@ export function runSSHCommand(info, command) {
 
         let output = '';
 
-        outputStream.on('data', function(data) {
+        outputStream.on('data', function (data) {
           output += data;
         });
 
-        outputStream.once('close', function(code) {
+        outputStream.once('close', function (code) {
           conn.end();
           resolve({ code, output });
         });

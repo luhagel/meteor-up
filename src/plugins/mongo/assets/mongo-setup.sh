@@ -1,4 +1,4 @@
 #!/bin/bash
 
-sudo mkdir -p /opt/mongodb
-sudo chown ${USER} /opt/mongodb -R
+mkdir -p /opt/mongodb
+chown ${USER} /opt/mongodb -R

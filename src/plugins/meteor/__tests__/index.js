@@ -14,17 +14,17 @@ chai.use(chaiString);
 sh.config.silent = false;
 const servers = require('../../../../tests/fixtures/servers');
 
-describe('module - meteor', function() {
+describe('module - meteor', function () {
   this.timeout(600000);
 
-  describe('setup', function() {
+  describe('setup', function () {
     it('should setup environment on "meteor" vm', async () => {
       const serverInfo = servers['mymeteor'];
 
       await runSSHCommand(serverInfo, 'rm -rf /opt/myapp || :');
       await runSSHCommand(
         serverInfo,
-        'command -v tree >/dev/null 2>&1 || { sudo apt-get -qq update && sudo apt-get -qq install -y tree; }'
+        'command -v tree >/dev/null 2>&1 || { apt-get -qq update && apt-get -qq install -y tree; }'
       );
 
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
@@ -42,7 +42,7 @@ describe('module - meteor', function() {
     });
   });
 
-  describe('push', function() {
+  describe('push', function () {
     it('should push meteor app bundle to "meteor" vm', async () => {
       const serverInfo = servers['mymeteor'];
 
@@ -68,7 +68,7 @@ describe('module - meteor', function() {
     });
   });
 
-  describe('envconfig', function() {
+  describe('envconfig', function () {
     const serverInfo = servers['mymeteor'];
     it('should send the environment variables to "meteor" vm', async () => {
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
@@ -113,7 +113,7 @@ describe('module - meteor', function() {
     });
   });
 
-  describe('start', function() {
+  describe('start', function () {
     const serverInfo = servers['mymeteor'];
 
     it('should start meteor on "meteor" vm', async () => {
@@ -136,7 +136,7 @@ describe('module - meteor', function() {
     });
   });
 
-  describe('deploy', function() {
+  describe('deploy', function () {
     const serverInfo = servers['mymeteor'];
 
     async function checkDeploy(out, appText) {
@@ -184,7 +184,7 @@ describe('module - meteor', function() {
     });
   });
 
-  describe('logs', function() {
+  describe('logs', function () {
     it('should pull the logs from "meteor" vm', async () => {
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));
 
@@ -193,7 +193,7 @@ describe('module - meteor', function() {
     });
   });
 
-  describe('stop', function() {
+  describe('stop', function () {
     const serverInfo = servers['mymeteor'];
     it('should stop meteor app on "meteor" vm', async () => {
       sh.cd(path.resolve(os.tmpdir(), 'tests/project-1'));

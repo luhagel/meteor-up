@@ -3,7 +3,7 @@ export LANG=en
 export MOCHA_PARALLEL="${MOCHA_PARALLEL:-2}"
 export PORT=3400
 
-command -v parallel >/dev/null 2>&1 || { sudo apt-get -qq -y install parallel; }
+command -v parallel >/dev/null 2>&1 || { apt-get -qq -y install parallel; }
 
 source ./tests/setup.sh
 
